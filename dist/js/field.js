@@ -400,7 +400,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['resourceName', 'field'],
     computed: {
         cleanValue: function cleanValue() {
-            console.log('innnnn');
             return this._stripHTML(this.field.value);
         }
     },
@@ -421,7 +420,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("span", [_vm._v(_vm._s(_vm.field.value))])
+  return _c("div", { staticClass: "truncate" }, [
+    _vm._v(_vm._s(_vm.cleanValue))
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

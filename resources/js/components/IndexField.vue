@@ -1,5 +1,5 @@
 <template>
-    <span>{{ field.value }}</span>
+    <div class="truncate">{{ cleanValue }}</div>
 </template>
 
 <script>
@@ -7,7 +7,6 @@ export default {
     props: ['resourceName', 'field'],
     computed: {
         cleanValue () {
-            console.log('innnnn');
             return this._stripHTML(this.field.value)
         },
     },
