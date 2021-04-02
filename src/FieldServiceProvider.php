@@ -21,7 +21,7 @@ class FieldServiceProvider extends ServiceProvider
         });
 
         $this->publishes([
-            __DIR__.'/../config/nova-tinymce-field.php' => config_path('nova.tinymce-field.php'),
+            __DIR__.'/../config/nova-tinymce-field.php' => config_path('nova/nova-tinymce-field.php'),
         ], 'config');
     }
 
