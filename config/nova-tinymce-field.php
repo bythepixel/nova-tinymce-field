@@ -1,11 +1,16 @@
 <?php
 
+/**
+ * Nova TinyMCE Configuration
+ *
+ * For more details, see: https://www.tiny.cloud/docs/configure/
+ */
 return [
     'options' => [
         'init' => [
-            'menubar' => false,
             'branding' => false,
             'image_caption' => true,
+            'menubar' => false,
             'paste_as_text' => true,
             'paste_word_valid_elements' => 'b,strong,i,em,h1,h2',
         ],
