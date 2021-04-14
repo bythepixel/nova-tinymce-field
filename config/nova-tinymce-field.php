@@ -5,6 +5,7 @@
  *
  * For more details, see: https://www.tiny.cloud/docs/configure/
  */
+
 return [
     'options' => [
         'init' => [
