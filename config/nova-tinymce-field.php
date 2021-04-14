@@ -8,11 +8,14 @@
 return [
     'options' => [
         'init' => [
+            'allow_html_in_named_anchor' => false,
             'branding' => false,
+            'extended_valid_elements' => 'a[href]',
             'image_caption' => true,
             'menubar' => false,
-            'paste_as_text' => true,
-            'paste_word_valid_elements' => 'b,strong,i,em,h1,h2',
+            'paste_as_text' => false,
+            'paste_retain_style_properties' => false,
+            'valid_elements' => '*',
         ],
         'plugins' => [
             'advlist autolink lists link image imagetools media',
