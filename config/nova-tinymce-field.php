@@ -11,7 +11,7 @@ return [
         'init' => [
             'allow_html_in_named_anchor' => false,
             'branding' => false,
-            'extended_valid_elements' => 'a[href],img[*]',
+            'extended_valid_elements' => 'a[data-*|href|rel|target],img[*]',
             'image_caption' => true,
             'menubar' => false,
             'paste_as_text' => false,
