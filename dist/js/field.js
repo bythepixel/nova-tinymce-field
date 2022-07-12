@@ -27350,7 +27350,7 @@ var render = function() {
               placeholder: _vm.field.placeholder,
               id: _vm.field.id,
               name: _vm.field.name,
-              height: 300
+              height: 800
             },
             model: {
               value: _vm.value,

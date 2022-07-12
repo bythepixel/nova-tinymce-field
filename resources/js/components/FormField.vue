@@ -12,7 +12,7 @@
                 :placeholder="field.placeholder"
                 :id="field.id"
                 :name="field.name"
-                height="800"
+                :height="800"
             />
         </template>
     </default-field>
