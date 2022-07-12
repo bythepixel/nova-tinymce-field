@@ -43,6 +43,7 @@
         computed: {
             editorConfig: function() {
                 this.editorConfigInit.images_upload_url = 'true';
+                this.editorConfigInit.height = '800';
                 this.editorConfigInit.images_upload_handler = this.uploadImage;
 
                 return this.editorConfigInit;
