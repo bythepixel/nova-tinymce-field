@@ -41,7 +41,7 @@
 
         computed: {
             editorConfig: function() {
-                this.editorConfigInit.height = 800;
+                this.editorConfigInit.max_height = 900;
                 this.editorConfigInit.images_upload_url = 'true';
                 this.editorConfigInit.images_upload_handler = this.uploadImage;
 
