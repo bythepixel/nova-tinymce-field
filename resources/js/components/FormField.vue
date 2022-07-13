@@ -12,7 +12,6 @@
                 :placeholder="field.placeholder"
                 :id="field.id"
                 :name="field.name"
-                :height="800"
             />
         </template>
     </default-field>
@@ -42,7 +41,7 @@
 
         computed: {
             editorConfig: function() {
-                this.editorConfigInit.height = 800;
+                this.editorConfigInit.max_height = 900;
                 this.editorConfigInit.images_upload_url = 'true';
                 this.editorConfigInit.images_upload_handler = this.uploadImage;
 
