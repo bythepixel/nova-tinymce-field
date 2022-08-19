@@ -1,6 +1,6 @@
 <template>
-    <default-field :field="field" :errors="errors" :show-help-text="showHelpText" :full-width-content="true">
-        <template slot="field">
+    <DefaultField :field="field" :errors="errors" :show-help-text="showHelpText" :full-width-content="true">
+        <template #field>
             <editor
                 v-model="value"
                 :api-key="apiKey"
@@ -14,7 +14,7 @@
                 :name="field.name"
             />
         </template>
-    </default-field>
+    </DefaultField>
 </template>
 
 <script>
