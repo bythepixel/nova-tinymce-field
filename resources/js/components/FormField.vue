@@ -1,25 +1,31 @@
 <template>
-    <default-field :field="field" :errors="errors" :show-help-text="showHelpText" :full-width-content="true">
-        <template slot="field">
-            <editor
-                v-model="value"
-                :api-key="apiKey"
-                cloud-channel="5"
-                :init="editorConfig"
-                :plugins="editorPlugins"
-                :toolbar="editorToolbar"
-                :class="errorClasses"
-                :placeholder="field.placeholder"
-                :id="field.id"
-                :name="field.name"
-            />
-        </template>
-    </default-field>
+  <DefaultField
+    :field="field"
+    :errors="errors"
+    :show-help-text="showHelpText"
+    :full-width-content="fullWidthContent"
+  >
+    <template #field>
+        <editor
+            v-model="value"
+            :api-key="apiKey"
+            cloud-channel="5"
+            :init="editorConfig"
+            :plugins="editorPlugins"
+            :toolbar="editorToolbar"
+            :class="errorClasses"
+            :placeholder="field.placeholder"
+            :id="field.id"
+            :name="field.name"
+        />
+    </template>
+  </DefaultField>
 </template>
 
 <script>
     import { FormField, HandlesValidationErrors } from 'laravel-nova'
     import Editor from '@tinymce/tinymce-vue'
+    import Shortcodes from '../plugins/shortcodes';
 
     export default {
         mixins: [FormField, HandlesValidationErrors],
@@ -35,7 +41,7 @@
                 editorConfigInit: this.field.options.init,
                 editorPlugins: this.field.options.plugins,
                 editorToolbar: this.field.options.toolbar,
-                apiKey: this.field.options.apiKey
+                apiKey: this.field.options.apiKey,
             }
         },
 
@@ -44,6 +50,12 @@
                 this.editorConfigInit.max_height = 900;
                 this.editorConfigInit.images_upload_url = 'true';
                 this.editorConfigInit.images_upload_handler = this.uploadImage;
+                const { shortcodes } = this.field.options;
+
+                // Callback to register custom plugins
+                this.editorConfigInit.setup = (editor) => {
+                    window.tinymce.PluginManager.add('shortcodes', new Shortcodes(shortcodes).register())
+                }
 
                 return this.editorConfigInit;
             }
@@ -65,7 +77,7 @@
                 xhr = new XMLHttpRequest();
                 xhr.withCredentials = false;
 
-                xhr.open('POST', `/nova-vendor/nova-tinymce-field/upload-image/${this.resourceName}/${this.field.attribute}`);
+                xhr.open('POST', `/nova-vendor/btp-wysiwyg/upload-image/${this.resourceName}/${this.field.attribute}`);
 
                 xhr.upload.onprogress = function (e) {
                     progress(e.loaded / e.total * 100);
@@ -114,3 +126,4 @@
 
     }
 </script>
+
