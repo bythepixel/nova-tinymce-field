@@ -27,5 +27,6 @@ return [
                  bullist numlist outdent indent | link image media insertmedialibrary | code',
         ],
         'apiKey' => env('TINYMCE_API_KEY', ''),
+        'shortcodes' => []
     ],
 ];
