@@ -2,10 +2,14 @@
 
 namespace Bythepixel\NovaTinymceField;
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
-use Laravel\Nova\Events\ServingNova;
-use Laravel\Nova\Nova;
+use Illuminate\Support\{
+    Route,
+    ServiceProvider
+};
+use Laravel\Nova\{
+    Events\ServingNova,
+    Nova
+};
 
 class FieldServiceProvider extends ServiceProvider
 {
