@@ -3,8 +3,10 @@
 namespace Bythepixel\NovaTinymceField;
 
 use Laravel\Nova\Contracts\Storable as StorableContract;
-use Laravel\Nova\Fields\Field;
-use Laravel\Nova\Fields\Storable;
+use Laravel\Nova\Fields\{
+    Field,
+    Storable
+};
 
 class NovaTinymceField extends Field implements StorableContract
 {
