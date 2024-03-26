@@ -8,6 +8,7 @@ export default class Shortcodes {
 
   constructor(shortcodes) {
     this.shortcodes = shortcodes;
+    this.editor = null;
   }
 
   /**
@@ -35,7 +36,7 @@ export default class Shortcodes {
       const tabItems = [{
         type: 'panel',
         items: [
-          ...titlePanel,
+          titlePanel,
           ...inputPanels
         ]
       }]
@@ -75,12 +76,11 @@ export default class Shortcodes {
       },
       buttons,
 
-      // To avoid stragglers in the dialog's state store when it's
-      // time to insert a shortcode, we reset the data whenever the
-      // tab changes
       onTabChange: this.handleTabChangeEvent,
 
-      onSubmit: this.handleSubmissionEvent
+      onSubmit: (dialogApi) => {
+        this.handleSubmissionEvent(dialogApi, editor);
+      }
     });
   }
 
@@ -91,6 +91,10 @@ export default class Shortcodes {
    * @returns { void }
    */
   handleTabChangeEvent(dialogApi) {
+
+    // To avoid stragglers in the dialog's state store when it's
+    // time to insert a shortcode, we reset the data whenever the
+    // tab changes
     resetTabData(dialogApi);
   }
 
@@ -99,9 +103,10 @@ export default class Shortcodes {
    * and inserts the snippet into the WYSIWYG content
    *
    * @param { Dialog } dialogApi - A TinyMCE Dialog instance
+   * @param { Editor } editor - A TinyMCE Editor instance
    * @returns { void }
    */
-  handleSubmissionEvent(dialogApi) {
+  handleSubmissionEvent(dialogApi, editor) {
     const inputData = dialogApi.getData();
     const shortcodeString = buildShortcodeStringFromData(inputData);
     editor.insertContent(shortcodeString);
