@@ -1,6 +1,17 @@
 # nova-tinymce-field
 This package is a Nova WYSIWIG Field that uses TinyMCE, which has an extensive set of configuration/plugins.
 
+- [Installation](#installation)
+- [Local Development](#local-development)
+    - [Creating the submodule](#creating-the-submodule)
+    - [Updating composer.json](#updating-composerjson)
+    - [Updating the Vue components](#updating-the-vue-components)
+- [TinyMCE](#tinymce)
+    - [Configuration](#configuration)
+    - [Shortcodes](#shortcodes)
+    - [Enabling the shortcode plugin](#enabling-the-shortcode-plugin)
+    - [Registering a shortcode](#registering-a-shortcode)
+
 ### Installation
 - `composer require bythepixel/nova-tinymce-field`
 - `php artisan vendor:publish --provider="Bythepixel\\NovaTinymceField\\FieldServiceProvider"`
@@ -63,5 +74,73 @@ Inside the `nova-tinymce-field` directory, run `npm i` and `npm run nova:install
 
 Once development is complete, be sure to `npm run prod` to rebuild the assets.
 
-### TinyMCE Configuration
-See: https://www.tiny.cloud/docs/configure/
+### TinyMCE
+
+#### Configuration
+See https://www.tiny.cloud/docs/configure/ for configuration details about the core TinyMCE package. This custom field uses a Vue wrapper to inject the field; documentation for which [can be found here](https://www.tiny.cloud/docs/integrations/vue/).
+
+#### Shortcodes
+This TinyMCE implementation includes a custom plugin to streamline shortcode insertion inside the editor. A caveat, as of writing, opening/closing shortcode tags are _not_ supported.
+
+#### Enabling the shortcode plugin
+To enable the shortcode plugin, which adds a new "Shortcodes" button to the WYSIWYG toolbar, you must update `plugins` and `toolbar` in the `nova-tinymce-field`:
+
+```
+'plugins' => [
+    'plugin1 plugin2 shortcodes'
+],
+'toolbar' => [
+    'button1 button2 | button3 button4 | shortcodes',
+]
+```
+
+#### Registering a shortcode
+Our primary driver for shortcodes on Laravel projects is `webwizo/laravel-shortcodes`, which uses the following syntax for shortcode snippets:
+
+```
+[shortcode-name attribute="value" another_attribute="value"]
+```
+
+The easiest way to prepare a shortcode class for registration in the `nova-tinymce-field` config is to use the `HasWysiwygShortcode` trait included in this package. There are three `public static` properties you need to include in the class to ensure the trait's helper methods can correctly build the required TinyMCE panels: 
+
+- `$name` - The display name for the shortcode
+- `$slug` - The slug used for the shortcode snippet
+- `$attributes` - A non-associative array of attributes used by the shortcode
+
+An example class would look like this:
+
+```
+use Bythepixel\NovaTinymceField\Traits\HasWysiwygShortcode;
+
+class AccentedHeadingShortcode
+{
+    use HasWysiwygShortcode;
+
+    public static string $name = "Accented Heading";
+    public static string $slug = "accented-heading";
+    public static array $attributes = [
+        'heading',
+        'subheading'
+    ];
+
+    // required for webwizo/laravel-shortcodes registration
+    public function register() {}
+}
+```
+
+Once the class is ready to register into the plugin, add it to the `nova-tinymce-field` config's `shortcodes` array:
+
+```
+use App\Shortcodes\AccentedHeadingShortcode;
+
+return [
+    ... other config options,
+    'shortcodes' => [
+        AccentedHeadingShortcode::class
+    ]
+]
+```
+
+You may also have to clear Laravel's config cache with `artisan config:clear`.
+
+Once the config has been properly updated, you should be able to see a tab for it after clicking the `Shortcodes` button in the WYSIWYG toolbar!
