@@ -3,7 +3,7 @@
 namespace Bythepixel\NovaTinymceField;
 
 use Illuminate\Support\{
-    Route,
+    Facades\Route,
     ServiceProvider
 };
 use Laravel\Nova\{
