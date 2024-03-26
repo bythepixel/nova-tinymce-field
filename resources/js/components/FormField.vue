@@ -54,7 +54,7 @@
 
                 // Callback to register custom plugins
                 this.editorConfigInit.setup = (editor) => {
-                    window.tinymce.PluginManager.add('shortcodes', new Shortcodes(shortcodes).register())
+                    window.tinymce.PluginManager.add('shortcodes', new Shortcodes(shortcodes).init())
                 }
 
                 return this.editorConfigInit;
@@ -120,10 +120,6 @@
                 xhr.send(formData);
             }
         },
-    }
-
-    function uploadImage(blobInfo, success, failure, progress) {
-
     }
 </script>
 
