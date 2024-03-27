@@ -70,9 +70,33 @@ For more info on submodules, feel free to [read the official documentation](http
 
 #### Updating the Vue components
 
-Inside the `nova-tinymce-field` directory, run `npm i` and `npm run nova:install` to install the field dependencies. For live updates, run `npm run watch`.
+First, you'll need to update the two nova-related paths in this repo's `nova.mix.js` and `package.json`.
+
+In `package.json`, for the `nova:install` command:
+
+```
+From:
+"nova:install": "npm --prefix='../../vendor/laravel/nova' ci"
+
+To:
+"nova:install": "npm --prefix='../vendor/laravel/nova' ci"
+```
+
+In `nova.mix.js`, on `line 30`:
+
+```
+From:
+'../../vendor/laravel/nova/resources/js/mixins/packages.js'
+
+To:
+'../vendor/laravel/nova/resources/js/mixins/packages.js'
+```
+
+Then, inside the `nova-tinymce-field` directory, run `npm i` and `npm run nova:install` to install the field dependencies. For live updates, run `npm run watch`.
 
 Once development is complete, be sure to `npm run prod` to rebuild the assets.
+
+**IMPORTANT:** When the assets are successfully built, revert the `package.json` and `nova.mix.js` changes. The original paths are correct for a production install, but must be updated for local development.
 
 ### TinyMCE
 
