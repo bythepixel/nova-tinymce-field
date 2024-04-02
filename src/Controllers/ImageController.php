@@ -1,11 +1,12 @@
 <?php
+
 namespace Bythepixel\NovaTinymceField\Controllers;
 
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class ImageController extends BaseController
+class ImageController extends Controller
 {
     public function upload(NovaRequest $request)
     {
