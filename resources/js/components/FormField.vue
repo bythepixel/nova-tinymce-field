@@ -77,7 +77,7 @@
                 xhr = new XMLHttpRequest();
                 xhr.withCredentials = false;
 
-                xhr.open('POST', `/nova-vendor/btp-wysiwyg/upload-image/${this.resourceName}/${this.field.attribute}`);
+                xhr.open('POST', `/nova-vendor/nova-tinymce-field/upload-image/${this.resourceName}/${this.field.attribute}`);
 
                 xhr.upload.onprogress = function (e) {
                     progress(e.loaded / e.total * 100);
